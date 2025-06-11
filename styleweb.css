@@ -208,3 +208,84 @@ button.theme-toggle:hover {
   background-color: #45a049;
   transform: scale(1.05);
 }
+/* RESPONSIVE DESIGN */
+
+/* Dispositivos móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  section {
+    padding: 1rem;
+  }
+
+  .timeline-item {
+    font-size: 0.95rem;
+  }
+}
+
+/* Teléfonos grandes y tabletas en modo vertical (481px a 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  section {
+    padding: 1.5rem;
+  }
+}
+
+/* Tablet en modo horizontal a laptops pequeños (769px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  main {
+    padding: 2rem;
+  }
+
+  .timeline-item {
+    font-size: 1rem;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+}
+
+/* Laptops grandes y PC (más de 1024px) */
+@media (min-width: 1025px) {
+  nav ul {
+    flex-direction: row;
+  }
+
+  header {
+    flex-wrap: nowrap;
+  }
+}
+
