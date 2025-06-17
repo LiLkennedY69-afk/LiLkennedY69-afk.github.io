@@ -1,339 +1,544 @@
-/* Reset básico y fuente */
+/* ===================================== */
+/* 1. VARIABLES CSS (CUSTOM PROPERTIES)  */
+/* ===================================== */
+
+:root {
+  /* Colores principales */
+  --primary-color: #4CAF50; /* Verde brillante */
+  --primary-color-dark: #388E3C; /* Verde oscuro para hover */
+  --accent-color: #03A9F4; /* Azul para resaltar */
+  --text-link-color: var(--primary-color);
+
+  /* Colores de texto */
+  --text-dark: #f5f5f5;
+  --text-light: #2c3e50; /* Azul oscuro para texto principal claro */
+  --text-secondary-dark: #b0bec5;
+  --text-secondary-light: #607d8b;
+
+  /* Fondos y bordes - Modo Oscuro */
+  --bg-dark-primary: #1a1a2e; /* Azul noche profundo */
+  --bg-dark-secondary: #26264d; /* Un poco más claro */
+  --bg-dark-tertiary: #0f0f1d; /* Para elementos específicos como el footer */
+  --border-dark: #3e2e50; /* Borde sutil púrpura oscuro */
+
+  /* Fondos y bordes - Modo Claro */
+  --bg-light-primary: #ffffff;
+  --bg-light-secondary: #f0f4f8; /* Un gris muy claro */
+  --bg-light-tertiary: #e0e6ed;
+  --border-light: #cfd8dc;
+
+  /* Sombras */
+  --shadow-dark-strong: rgba(0, 0, 0, 0.6);
+  --shadow-dark-medium: rgba(0, 0, 0, 0.35);
+  --shadow-light-strong: rgba(0, 0, 0, 0.15);
+  --shadow-light-medium: rgba(0, 0, 0, 0.08);
+
+  /* Espaciado */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Tipografía */
+  --font-family-primary: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-h1: 2.8rem;
+  --font-size-h2: 2.2rem;
+  --font-size-h3: 1.8rem;
+  --font-size-h4: 1.4rem;
+  --font-size-small: 0.9rem;
+
+  /* Bordes y radios */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 15px;
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+}
+
+/* ===================================== */
+/* 2. ESTILOS BASE Y GLOBALES            */
+/* ===================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--font-family-primary);
   margin: 0;
   line-height: 1.6;
-  transition: all 0.3s ease;
+  font-size: var(--font-size-base);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  scroll-behavior: smooth; /* Desplazamiento suave para anclas */
 }
 
-/* Variables CSS para temas */
-:root {
-  /* Colores modo oscuro */
-  --dark-bg: #121212;
-  --dark-text: #f5f5f5;
-  --dark-header-gradient-start: #1e1e1e;
-  --dark-header-gradient-end: #2e2e2e;
-  --dark-section-bg: #1e1e1e;
-  --dark-section-border: #333;
-  --dark-image-box-bg: #2a2a2a;
-  --dark-image-box-border: #444;
-  --dark-timeline-item-bg: #2c2c2c;
-  --dark-footer-bg: #1e1e1e;
-  --dark-footer-text: #ccc;
-
-  /* Colores modo claro */
-  --light-bg: #f9f9f9;
-  --light-text: #222;
-  --light-header-gradient-start: #f0f0f0;
-  --light-header-gradient-end: #ffffff;
-  --light-section-bg: #ffffff;
-  --light-section-border: #ccc;
-  --light-image-box-bg: #eeeeee;
-  --light-image-box-border: #ccc;
-  --light-timeline-item-bg: #f5f5f5;
-  --light-footer-bg: #e0e0e0;
-  --light-footer-text: #444;
-
-  /* Colores generales */
-  --primary-color: #4caf50;
-  --primary-color-hover: #45a049;
-  --primary-color-translucent: rgba(76, 175, 80, 0.1);
-  --shadow-dark: rgba(0, 0, 0, 0.4);
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --transition-speed: 0.3s ease;
-}
-
-/* Aplicación de variables a los temas */
+/* Modos de Tema */
 body.dark {
-  background-color: var(--dark-bg);
-  color: var(--dark-text);
+  background-color: var(--bg-dark-primary);
+  color: var(--text-dark);
 }
 
 body.light {
-  background-color: var(--light-bg);
-  color: var(--light-text);
+  background-color: var(--bg-light-primary);
+  color: var(--text-light);
 }
 
-/* ENCABEZADO */
+/* Enlaces globales */
+a {
+  color: var(--text-link-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-color-dark);
+  text-decoration: underline;
+}
+
+/* ===================================== */
+/* 3. ENCABEZADO Y NAVEGACIÓN            */
+/* ===================================== */
+
 header {
-  background: linear-gradient(90deg, var(--dark-header-gradient-start), var(--dark-header-gradient-end));
-  padding: 1.5rem 2rem;
+  background: linear-gradient(90deg, var(--bg-dark-secondary), var(--bg-dark-primary));
+  padding: var(--spacing-md) var(--spacing-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0 2px 10px var(--shadow-dark);
-  border-bottom: 3px solid var(--primary-color);
-  transition: background var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 4px 15px var(--shadow-dark-strong);
+  border-bottom: 4px solid var(--primary-color);
+  position: sticky; /* Sticky header */
+  top: 0;
+  z-index: 1000;
+  transition: background var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
 }
 
 body.light header {
-  background: linear-gradient(90deg, var(--light-header-gradient-start), var(--light-header-gradient-end));
-  border-bottom: 3px solid var(--primary-color);
-  box-shadow: 0 2px 10px var(--shadow-light);
+  background: linear-gradient(90deg, var(--bg-light-secondary), var(--bg-light-primary));
+  box-shadow: 0 4px 15px var(--shadow-light-strong);
 }
 
 header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: var(--font-size-h1);
+  letter-spacing: -0.05em; /* Un poco más ajustado */
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
-/* NAVEGACIÓN */
 nav ul {
   list-style: none;
   display: flex;
-  gap: 1.2rem;
+  gap: var(--spacing-sm);
   padding: 0;
-  margin: 1rem 0 0; /* Ajuste para móviles */
+  margin: 0;
 }
 
 nav a {
-  color: var(--primary-color);
+  color: var(--text-dark); /* Color por defecto en header oscuro */
   text-decoration: none;
-  font-weight: bold;
-  position: relative;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  transition: background-color var(--transition-speed);
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap; /* Previene saltos de línea inesperados */
+}
+
+body.light nav a {
+  color: var(--text-light); /* Color en header claro */
 }
 
 nav a:hover {
-  background-color: var(--primary-color-translucent);
+  background-color: rgba(var(--primary-color), 0.1); /* Usar RGBA para un color más transparente */
+  color: var(--primary-color);
+  text-decoration: none;
 }
+
+/* Botón de alternar tema */
+button.theme-toggle {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  box-shadow: 0 2px 8px var(--shadow-dark-medium);
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-normal);
+}
+
+button.theme-toggle:hover {
+  background-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-dark-strong);
+}
+
+body.light button.theme-toggle {
+  box-shadow: 0 2px 8px var(--shadow-light-medium);
+}
+
+body.light button.theme-toggle:hover {
+  box-shadow: 0 4px 12px var(--shadow-light-strong);
+}
+
+
+/* ===================================== */
+/* 4. CONTENIDO PRINCIPAL Y SECCIONES    */
+/* ===================================== */
 
 main {
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem;
+  max-width: 1000px; /* Un poco más de ancho */
+  margin: var(--spacing-xl) auto;
+  padding: 0 var(--spacing-lg); /* Padding horizontal */
 }
 
-/* SECCIONES */
 section {
-  background-color: var(--dark-section-bg);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px var(--shadow-dark);
-  margin-bottom: 3rem;
-  border: 1px solid var(--dark-section-border);
-  transition: transform 0.2s, background-color var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
-}
-
-section:hover {
-  transform: translateY(-4px);
+  background-color: var(--bg-dark-secondary);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 25px var(--shadow-dark-strong);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border-dark);
+  transition: transform var(--transition-normal), background-color var(--transition-normal),
+              box-shadow var(--transition-normal), border-color var(--transition-normal);
+  position: relative; /* Para animaciones o efectos internos */
 }
 
 body.light section {
-  background-color: var(--light-section-bg);
-  border: 1px solid var(--light-section-border);
-  box-shadow: 0 4px 12px var(--shadow-light);
+  background-color: var(--bg-light-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 25px var(--shadow-light-strong);
 }
 
-h2, h3, h4 { /* Aplicar color primario a todos los títulos relevantes */
+section:hover {
+  transform: translateY(-5px); /* Efecto sutil de elevación */
+  box-shadow: 0 12px 30px var(--shadow-dark-strong); /* Sombra más pronunciada */
+}
+
+body.light section:hover {
+  box-shadow: 0 12px 30px var(--shadow-light-strong);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
   color: var(--primary-color);
-  margin-top: 0;
-  margin-bottom: 1rem;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
 }
 
-/* IMÁGENES */
+h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  margin: var(--spacing-sm) auto 0;
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  color: var(--primary-color);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  color: var(--primary-color-dark);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-dark); /* Color de texto por defecto en dark mode */
+}
+
+body.light p {
+  color: var(--text-light); /* Color de texto en light mode */
+}
+
+/* Listas en secciones */
+section ul {
+  list-style: none; /* Eliminar viñetas por defecto */
+  padding-left: 0;
+  margin-top: var(--spacing-md);
+}
+
+section ul li {
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+  padding-left: var(--spacing-md); /* Espacio para el ícono personalizado */
+}
+
+section ul li::before {
+  content: "✦"; /* Un diamante como viñeta, o un SVG si quieres algo más complejo */
+  color: var(--accent-color); /* Color del ícono */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+}
+
+/* ===================================== */
+/* 5. ELEMENTOS ESPECÍFICOS              */
+/* ===================================== */
+
+/* Imágenes */
 .imagen-uniforme {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px; /* Un poco más grande para las imágenes */
   height: auto;
   display: block;
-  margin: 0 auto 1rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px var(--shadow-dark);
-  transition: box-shadow var(--transition-speed);
+  margin: var(--spacing-md) auto var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 10px 25px var(--shadow-dark-medium);
+  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionar */
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-/* CAJA de imagen */
+.imagen-uniforme:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px var(--shadow-dark-strong);
+}
+
+body.light .imagen-uniforme {
+  box-shadow: 0 10px 25px var(--shadow-light-medium);
+}
+
+body.light .imagen-uniforme:hover {
+  box-shadow: 0 15px 40px var(--shadow-light-strong);
+}
+
+
+/* Caja de imagen (contenedor) */
 .imagen-caja {
-  background-color: var(--dark-image-box-bg);
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid var(--dark-image-box-border);
+  background-color: var(--bg-dark-primary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-dark);
   text-align: center;
-  margin-bottom: 1rem;
-  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: 0 4px 15px var(--shadow-dark-medium);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 body.light .imagen-caja {
-  background-color: var(--light-image-box-bg);
-  border: 1px solid var(--light-image-box-border);
+  background-color: var(--bg-light-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 15px var(--shadow-light-medium);
 }
 
-/* LÍNEA DEL TIEMPO */
+/* Línea del Tiempo */
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding-left: 1rem;
+  gap: var(--spacing-lg);
+  padding-left: var(--spacing-md);
   border-left: 4px solid var(--primary-color);
+  margin-top: var(--spacing-xl);
+  position: relative; /* Para la línea central */
 }
 
 .timeline-item {
-  background-color: var(--dark-timeline-item-bg);
-  padding: 1rem;
-  border-radius: 10px;
-  border-left: 4px solid var(--primary-color);
+  background-color: var(--bg-dark-tertiary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 6px 16px var(--shadow-dark-medium);
   position: relative;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-  transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+  left: 0; /* Asegura que no haya desplazamiento inicial */
+  transition: background-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-fast);
+}
+
+body.light .timeline-item {
+  background-color: var(--bg-light-tertiary);
+  box-shadow: 0 6px 16px var(--shadow-light-medium);
+}
+
+.timeline-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 20px var(--shadow-dark-strong);
+}
+
+body.light .timeline-item:hover {
+  box-shadow: 0 8px 20px var(--shadow-light-strong);
+}
+
+.timeline-item strong {
+  color: var(--accent-color); /* Resaltar el año */
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: var(--spacing-xs);
 }
 
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -1.15rem;
-  top: 1rem;
-  width: 0.8rem;
-  height: 0.8rem;
+  left: calc(-1rem - 4px); /* Ajuste para que el círculo esté en la línea */
+  top: var(--spacing-md);
+  width: 1rem;
+  height: 1rem;
   background-color: var(--primary-color);
   border-radius: 50%;
-  border: 2px solid var(--dark-bg); /* Color de borde para el modo oscuro */
-  transition: border-color var(--transition-speed), background-color var(--transition-speed);
-}
-
-body.light .timeline-item {
-  background-color: var(--light-timeline-item-bg);
-  color: var(--light-text);
-  border-left-color: var(--primary-color);
+  border: 4px solid var(--bg-dark-primary); /* Borde que coincide con el fondo del body */
+  box-shadow: 0 0 0 2px var(--accent-color); /* Anillo adicional */
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  z-index: 1; /* Asegura que el círculo esté por encima de la línea */
 }
 
 body.light .timeline-item::before {
-  border-color: var(--light-timeline-item-bg); /* Color de borde para el modo claro */
+  border-color: var(--bg-light-primary);
 }
 
-/* LISTAS EN SECCIONES */
-section ul {
-  padding-left: 1.5rem;
-}
 
-section ul li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 1.2rem;
-}
+/* ===================================== */
+/* 6. FOOTER                             */
+/* ===================================== */
 
-section ul li::before {
-  content: "✔️";
-  position: absolute;
-  left: 0;
-}
-
-/* FOOTER */
 footer {
-  background-color: var(--dark-footer-bg);
-  padding: 1.5rem;
+  background-color: var(--bg-dark-tertiary);
+  padding: var(--spacing-md) var(--spacing-lg);
   text-align: center;
-  font-size: 0.9rem;
-  color: var(--dark-footer-text);
-  border-top: 3px solid var(--primary-color);
-  margin-top: 4rem;
-  transition: background-color var(--transition-speed), color var(--transition-speed), border-top-color var(--transition-speed);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary-dark);
+  border-top: 4px solid var(--primary-color);
+  margin-top: var(--spacing-xl);
+  transition: background-color var(--transition-normal), color var(--transition-normal), border-color var(--transition-normal);
 }
 
 body.light footer {
-  background-color: var(--light-footer-bg);
-  color: var(--light-footer-text);
+  background-color: var(--bg-light-tertiary);
+  color: var(--text-secondary-light);
 }
 
-/* BOTÓN DE TEMA */
-button.theme-toggle {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 2px 6px var(--shadow-dark);
-  transition: background-color var(--transition-speed), transform 0.2s, box-shadow var(--transition-speed);
-}
+/* ===================================== */
+/* 7. RESPONSIVE DESIGN (MEDIA QUERIES)  */
+/* ===================================== */
 
-button.theme-toggle:hover {
-  background-color: var(--primary-color-hover);
-  transform: scale(1.05);
-}
-
-/* RESPONSIVE DESIGN */
-
-/* Dispositivos móviles pequeños (hasta 480px) */
+/* Dispositivos muy pequeños (hasta 480px) */
 @media (max-width: 480px) {
+  :root {
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.8rem;
+    --font-size-h3: 1.4rem;
+    --font-size-h4: 1.2rem;
+    --font-size-base: 0.95rem;
+  }
+
   header {
     flex-direction: column;
     align-items: flex-start;
+    padding: var(--spacing-sm);
+  }
+
+  header h1 {
+    font-size: var(--font-size-h2); /* Reducir aún más */
+    margin-bottom: var(--spacing-sm);
   }
 
   nav ul {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--spacing-xs);
     width: 100%;
+    margin-top: var(--spacing-sm);
   }
 
-  header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  nav a {
+    padding: var(--spacing-xs);
+    width: 100%; /* Ocupar todo el ancho */
+    text-align: center;
+  }
+
+  button.theme-toggle {
+    margin-top: var(--spacing-sm);
   }
 
   main {
-    padding: 1rem;
+    padding: 0 var(--spacing-sm);
+    margin: var(--spacing-lg) auto;
   }
 
   section {
-    padding: 1rem;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
   }
 
-  .timeline-item {
-    font-size: 0.95rem;
+  h2 {
+    font-size: var(--font-size-h2);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .timeline-item::before {
+    left: calc(-0.9rem - 4px); /* Ajuste para el punto en la línea de tiempo */
+    top: var(--spacing-sm);
+    width: 0.7rem;
+    height: 0.7rem;
   }
 }
 
 /* Teléfonos grandes y tabletas en modo vertical (481px a 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.6rem;
+  }
+
   header {
     flex-direction: column;
     align-items: flex-start;
+    padding: var(--spacing-md);
   }
 
   nav ul {
-    flex-direction: column;
-    gap: 0.8rem;
+    flex-direction: row; /* Volver a fila */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+    justify-content: center;
+    margin-top: var(--spacing-md);
     width: 100%;
   }
 
+  nav a {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
   main {
-    padding: 1.5rem;
+    padding: 0 var(--spacing-md);
+    margin: var(--spacing-xl) auto;
   }
 
   section {
-    padding: 1.5rem;
+    padding: var(--spacing-lg);
   }
 }
 
 /* Tablet en modo horizontal a laptops pequeños (769px a 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  main {
-    padding: 2rem;
-  }
-
-  .timeline-item {
-    font-size: 1rem;
-  }
-
   nav ul {
-    gap: 1rem;
+    gap: var(--spacing-md);
+  }
+
+  main {
+    padding: 0 var(--spacing-lg);
   }
 }
 
-/* Laptops grandes y PC (más de 1024px) */
+/* Laptops grandes y PC (más de 1025px) */
 @media (min-width: 1025px) {
   nav ul {
-    flex-direction: row;
-  }
-
-  header {
-    flex-wrap: nowrap;
+    gap: var(--spacing-lg);
   }
 }
